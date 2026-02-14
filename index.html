@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>To My People | Valentine 2026 ❤️</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<defs>
+<radialGradient id='g'>
+<stop offset='0%' stop-color='%23ff4d6d'/>
+<stop offset='100%' stop-color='%230d0d0d'/>
+</radialGradient>
+</defs>
+<circle cx='50' cy='50' r='48' fill='url(%23g)'/>
+<path d='M50 70 C20 45 30 20 50 35 C70 20 80 45 50 70 Z' fill='%23ffffff'/>
+</svg>">
+
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+min-height:100vh;
+background:radial-gradient(circle at top,#2b0a1f,#0d0d0d);
+color:#ff4d6d;
+font-family:Segoe UI,Tahoma,sans-serif;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+transition:filter 1.5s ease, background-size 2s ease;
+}
+
+/* FLOATING HEARTS */
+.heart{
+position:absolute;
+opacity:.15;
+animation:floatUp linear infinite;
+}
+@keyframes floatUp{
+from{transform:translateY(100vh)}
+to{transform:translateY(-10vh)}
+}
+
+/* CARD */
+.card{
+background:rgba(30,30,30,.95);
+border-radius:20px;
+padding:30px;
+max-width:540px;
+text-align:center;
+border:1px solid #ff4d6d;
+box-shadow:0 0 30px rgba(255,77,109,.4);
+animation:glow 3s infinite alternate;
+z-index:10;
+transition:transform .4s ease, filter .2s ease;
+}
+@keyframes glow{
+from{box-shadow:0 0 15px rgba(255,77,109,.4)}
+to{box-shadow:0 0 40px rgba(255,77,109,.8)}
+}
+
+/* GLITCH */
+.glitch{
+animation:glitch .25s steps(2,end) 4;
+filter:contrast(1.6) saturate(1.8);
+}
+@keyframes glitch{
+0%{transform:translate(0)}
+20%{transform:translate(-4px,3px)}
+40%{transform:translate(4px,-3px)}
+60%{transform:translate(-3px,4px)}
+80%{transform:translate(3px,-4px)}
+100%{transform:translate(0)}
+}
+
+/* BUTTON */
+.btn{
+background:linear-gradient(135deg,#ff4d6d,#ff758f);
+border:none;
+color:white;
+padding:12px 25px;
+border-radius:25px;
+cursor:pointer;
+margin-top:20px;
+font-weight:bold;
+}
+
+/* EXPLOSIONS */
+.explosion{
+position:fixed;
+width:14px;
+height:14px;
+border-radius:50%;
+background:#ff4d6d;
+pointer-events:none;
+animation:boom 1.6s ease-out forwards;
+}
+@keyframes boom{
+from{opacity:1}
+to{opacity:0;transform:translate(var(--x),var(--y)) scale(0)}
+}
+
+/* SENZU BEANS */
+.bean{
+background:#3cff6f !important;
+}
+
+/* FLASH */
+.flash{
+position:fixed;
+inset:0;
+background:rgba(255,77,109,.7);
+animation:flash .9s forwards;
+z-index:999;
+}
+@keyframes flash{to{opacity:0}}
+
+/* FINAL FORM */
+body.final{
+filter:brightness(1.4);
+background-size:180% 180%;
+}
+.card.final{
+animation:heartbeat 1.4s infinite;
+}
+@keyframes heartbeat{
+25%{transform:scale(1.04)}
+60%{transform:scale(1.02)}
+}
+
+/* FOOTER */
+footer{
+margin-top:25px;
+font-size:.8em;
+color:#ffb3c1;
+line-height:1.6;
+opacity:.9;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+<h1>Happy Valentine’s Day ❤️</h1>
+
+<p id="message">
+To my friends, parents, and the whole family…
+</p>
+
+<button class="btn" onclick="reveal()">Click for Love ✨</button>
+
+<footer>
+<br>
+
+“Humankind cannot gain anything without first giving something in return.”<br>
+Reality is fragile — belief gives it shape.<br><br>
+    <br>
+Crafted by <strong>Clement Vexegon</strong><br>
+    Made with ❤️ in Kayole, Nairobi
+</footer>
+</div>
+
+<audio id="bgm" loop>
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f84b0c9d6.mp3">
+</audio>
+
+<script>
+/* FLOATING HEARTS */
+for(let i=0;i<30;i++){
+const h=document.createElement("div");
+h.className="heart";
+h.textContent="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=14+Math.random()*26+"px";
+h.style.animationDuration=6+Math.random()*6+"s";
+document.body.appendChild(h);
+}
+
+/* STORY ARC */
+const messages=[
+"You all mean more to me than words can say.",
+"Through hard times and good days — you stayed.",
+"When I doubted myself, you believed.",
+"This heart beats because of your love.",
+"Grateful. Always.",
+"Love is not quiet. It changes the world.",
+"This love… is my explosion.",
+"By the will of Clement Vexegon — reality fractures.",
+"CHAOS MAGIC. GO BEYOND."
+];
+
+let index=0, finale=false, musicStarted=false;
+const bgm=document.getElementById("bgm");
+bgm.volume=1.0;
+
+/* EFFECTS */
+function glitch(card){
+card.classList.add("glitch");
+bgm.playbackRate=0.6+Math.random()*1.2;
+setTimeout(()=>{
+card.classList.remove("glitch");
+bgm.playbackRate=1;
+},350);
+}
+
+function explode(x,y,power=70,bean=false){
+for(let i=0;i<power;i++){
+const p=document.createElement("div");
+p.className="explosion"+(bean?" bean":"");
+p.style.left=x+"px";
+p.style.top=y+"px";
+const a=Math.random()*Math.PI*2;
+const d=200+Math.random()*400;
+p.style.setProperty("--x",Math.cos(a)*d+"px");
+p.style.setProperty("--y",Math.sin(a)*d+"px");
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),1600);
+}
+}
+
+function senzu(card){
+const cx=innerWidth/2, cy=innerHeight/2;
+explode(cx,cy,180,true);
+card.style.filter="brightness(1.6) saturate(1.9)";
+setTimeout(()=>card.style.filter="none",1300);
+}
+
+function grandFinale(){
+const cx=innerWidth/2, cy=innerHeight/2;
+document.body.classList.add("final");
+document.getElementById("card").classList.add("final");
+
+for(let i=0;i<14;i++){
+setTimeout(()=>explode(cx,cy,220),i*260);
+}
+
+const flash=document.createElement("div");
+flash.className="flash";
+document.body.appendChild(flash);
+setTimeout(()=>flash.remove(),900);
+
+setTimeout(resetWorld,8000);
+}
+
+function resetWorld(){
+document.body.className="";
+document.getElementById("card").className="card";
+index=0;
+finale=false;
+document.getElementById("message").textContent=
+"To my friends, parents, and the whole family…";
+}
+
+function reveal(){
+const card=document.getElementById("card");
+if(!musicStarted){bgm.play();musicStarted=true}
+
+glitch(card);
+document.getElementById("message").textContent=messages[index];
+
+const r=card.getBoundingClientRect();
+explode(r.left+r.width/2,r.top+r.height/2,60);
+
+if(messages[index].includes("Vexegon")){
+senzu(card);
+}
+
+index++;
+if(index===messages.length && !finale){
+finale=true;
+setTimeout(grandFinale,1200);
+}
+}
+
+document.addEventListener("click",e=>explode(e.clientX,e.clientY,16));
+</script>
+
+</body>
+</html>
